@@ -31,11 +31,10 @@ void main() throws IOException {
                 diary=DiaryFile.nacti();
                 break;
             case "novy":
-                if(diary.lastDay.date.equals(LocalDate.now())){
-                    diary.lastDay.records.add(zadejZaznam());
-                }else{
+                if(!diary.lastDay.date.equals(LocalDate.now())){
                     diary.addDay();
                 }
+                diary.lastDay.records.add(zadejZaznam());
                 show=diary.lastDay;
                 break;
             case "konec":

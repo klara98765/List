@@ -40,10 +40,6 @@ public class MyLinkListCreate implements Serializable {
     public void addDay() {
         MyLinkList n = new MyLinkList();
         add(n);
-        Scanner scanner = new Scanner(System.in);
-        IO.println("Zadej první záznam: ");
-        String text = scanner.nextLine();
-        n.records.add(text);
         numberOfDays++;
     }
 }
