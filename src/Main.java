@@ -32,7 +32,7 @@ void main() throws IOException {
                 break;
             case "novy":
                 if(diary.lastDay.date.equals(LocalDate.now())){
-                    diary.lastDay.records.add(zadej("Zadej nový záznam: "));
+                    diary.lastDay.records.add(zadejZaznam());
                 }else{
                     diary.addDay();
                 }
@@ -50,10 +50,26 @@ void main() throws IOException {
         }
     }
 }
+public String zadejZaznam() {
+    Scanner scanner = new Scanner(System.in);
+    StringBuilder zaznam = new StringBuilder();
+    IO.println("Zadávej text záznamu.");
+    IO.println("Zadávání ukončíš prázdným řádkem.");
+    while (true) {
+        String radek = scanner.nextLine();
+        if (radek.isEmpty()) {
+            break;
+        }
+        if (zaznam.length() > 0) {
+            zaznam.append("\n");
+        }
+        zaznam.append(radek);
+    }
+    return zaznam.toString();
+}
 public MyLinkList deleteRecord(MyLinkList day, MyLinkListCreate diary){
     int cislo=-1;
     while(cislo<1 || cislo>day.records.maxLenght){
-        IO.println("moc malé číslo");
         String text = zadej("Zadej číslo záznamu, který chcete smazat: ");
         try {
             cislo = Integer.parseInt(text);
@@ -61,10 +77,13 @@ public MyLinkList deleteRecord(MyLinkList day, MyLinkListCreate diary){
             System.out.println("Neplatné číslo.");
         }
     }
-    day.records.delete(cislo-1);
-    if(day.records.index==0){
-        diary.delete(day);
-        day=diary.lastDay;
+    if(zadej("Opravdu chcete smazat: "+day.records.records[cislo-1]+"? (pokud ano, zadejte ano)").equals("ano")){
+        IO.println("Dobře");
+        day.records.delete(cislo-1);
+        if(day.records.index==0){
+            diary.delete(day);
+            day=diary.lastDay;
+        }
     }
     return day;
 }
