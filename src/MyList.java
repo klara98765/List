@@ -1,4 +1,6 @@
 import java.io.Serializable;
+import java.util.Scanner;
+
 public class MyList implements Serializable {
     private static final long serialVersionUID = 1L;
     public int maxLenght;
@@ -26,7 +28,8 @@ public class MyList implements Serializable {
         records = newRecord;
     }
 
-    public void add(String record){
+    public void add(){
+        String record=zadejZaznam();
         if (index+2>=maxLenght){
             maxLenght=maxLenght*2;
             String[] newRecords=new String[maxLenght];
@@ -37,6 +40,24 @@ public class MyList implements Serializable {
         }
         records[index]=record;
         index++;
+    }
+
+    public String zadejZaznam() {
+        Scanner scanner = new Scanner(System.in);
+        StringBuilder zaznam = new StringBuilder();
+        IO.println("Zadávej text záznamu.");
+        IO.println("Zadávání ukončíš prázdným řádkem.");
+        while (true) {
+            String radek = scanner.nextLine();
+            if (radek.isEmpty()) {
+                break;
+            }
+            if (zaznam.length() > 0) {
+                zaznam.append("\n");
+            }
+            zaznam.append(radek);
+        }
+        return zaznam.toString();
     }
 
     public void readAll(){

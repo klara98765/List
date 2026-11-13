@@ -31,12 +31,7 @@ void main() throws IOException {
                 diary=DiaryFile.nacti();
                 break;
             case "novy":
-                if(!diary.lastDay.date.equals(LocalDate.now())){
-                    diary.addDay();
-                }
-                diary.lastDay.records.add(zadejZaznam());
-                show=diary.lastDay;
-                break;
+                diary.addDay();
             case "konec":
                 show=diary.lastDay;
                 break;
@@ -48,23 +43,6 @@ void main() throws IOException {
                 return;
         }
     }
-}
-public String zadejZaznam() {
-    Scanner scanner = new Scanner(System.in);
-    StringBuilder zaznam = new StringBuilder();
-    IO.println("Zadávej text záznamu.");
-    IO.println("Zadávání ukončíš prázdným řádkem.");
-    while (true) {
-        String radek = scanner.nextLine();
-        if (radek.isEmpty()) {
-            break;
-        }
-        if (zaznam.length() > 0) {
-            zaznam.append("\n");
-        }
-        zaznam.append(radek);
-    }
-    return zaznam.toString();
 }
 public MyLinkList deleteRecord(MyLinkList day, MyLinkListCreate diary){
     int cislo=-1;

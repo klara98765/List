@@ -7,7 +7,7 @@ public class MyLinkListCreate implements Serializable {
     public MyLinkList lastDay;
     public int numberOfDays;
 
-    public void add(MyLinkList day){
+    public void addLast(MyLinkList day){
         if(firstDay==null){
             firstDay=day;
             lastDay=day;
@@ -17,6 +17,7 @@ public class MyLinkListCreate implements Serializable {
             day.prevAddress = lastDay;
             lastDay=day;
         }
+        day.records.add();
     }
     public void delete(MyLinkList day) {
         if (day == firstDay && day == lastDay) {
@@ -39,7 +40,52 @@ public class MyLinkListCreate implements Serializable {
 
     public void addDay() {
         MyLinkList n = new MyLinkList();
-        add(n);
-        numberOfDays++;
+        addDayByDate(n);
+    }
+
+
+    public void addFirst(MyLinkList day){
+        firstDay.prevAddress=day;
+        firstDay=day;
+        day.records.add();
+    }
+
+    public void addBetween(MyLinkList day, MyLinkList dayBefore){
+        dayBefore.nextAddress.prevAddress=day;
+        day.nextAddress=dayBefore.nextAddress;
+        dayBefore.nextAddress=day;
+        day.prevAddress=dayBefore;
+        day.records.add();
+    }
+
+    public void addDayByDate(MyLinkList day) {
+        if (firstDay == null) {
+            addLast(day);
+            numberOfDays++;
+            return;
+        }
+        if (day.date.isBefore(firstDay.date)) {
+            addFirst(day);
+            numberOfDays++;
+            return;
+        }
+        MyLinkList current = firstDay;
+        while (current != null) {
+            if (day.date.equals(current.date)) {
+                current.records.add();
+                return;
+            }
+            if (current.nextAddress == null) {
+                addLast(day);
+                numberOfDays++;
+                return;
+            }
+            if (day.date.isBefore(current.nextAddress.date)) {
+                addBetween(day, current);
+                numberOfDays++;
+                return;
+            }
+            current = current.nextAddress;
+        }
     }
 }

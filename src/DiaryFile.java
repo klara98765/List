@@ -7,7 +7,6 @@ public class DiaryFile {
             soubor.createNewFile();
             MyLinkListCreate diary=new MyLinkListCreate();
             diary.numberOfDays=0;
-            diary.addDay();
             uloz(diary);
             return diary;
         }
