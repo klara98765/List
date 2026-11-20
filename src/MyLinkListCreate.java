@@ -46,6 +46,7 @@ public class MyLinkListCreate implements Serializable {
 
     public void addFirst(MyLinkList day){
         firstDay.prevAddress=day;
+        day.nextAddress=firstDay;
         firstDay=day;
         day.records.add();
     }
